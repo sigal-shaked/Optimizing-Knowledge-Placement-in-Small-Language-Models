@@ -1,0 +1,20 @@
+base_model: mistralai/Mistral-7B-Instruct-v0.2
+lora_path: outputs/mistral_stage1
+adapter: qlora
+lora_r: 16
+lora_alpha: 32
+lora_dropout: 0.05
+learning_rate: 1e-4
+optimizer: adamw_bnb_8bit
+lr_scheduler: cosine
+warmup_steps: 100
+sequence_len: 1760
+micro_batch_size: 48
+gradient_accumulation_steps: 1
+datasets:
+  - path: data/docs_qa_with_context_ALPACA.jsonl
+    type: alpaca
+system_prompt: |
+  You are a helpful assistant. Use the provided context when it helps,
+  but you are not required to rely on it exclusively.
+output_dir: outputs/mistral_stage2
