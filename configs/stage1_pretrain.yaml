@@ -1,0 +1,23 @@
+base_model: mistralai/Mistral-7B-Instruct-v0.2
+model_type: mistral
+tokenizer_type: AutoTokenizer
+sequence_len: 1760
+micro_batch_size: 64
+gradient_accumulation_steps: 1
+bf16: true
+adapter: qlora
+lora_r: 16
+lora_alpha: 32
+lora_dropout: 0.05
+learning_rate: 2e-4
+optimizer: adamw_bnb_8bit
+lr_scheduler: cosine
+warmup_steps: 100
+max_steps: 2770
+dataset_prepared_path: cache_pretrain
+pretraining_dataset:
+  - path: json
+    data_files:
+      - data/docs_for_pretrain.jsonl
+    text_column: text
+output_dir: outputs/mistral_stage1
